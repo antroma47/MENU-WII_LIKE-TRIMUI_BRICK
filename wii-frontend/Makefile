@@ -7,7 +7,7 @@ SRCDIR     := src
 OBJDIR     := build
 BINDIR     := bin
 
-# Sorgenti
+# Sorgenti - complete architecture
 SOURCES := $(SRCDIR)/main.c \
            $(SRCDIR)/channels/channel.c \
            $(SRCDIR)/ui/banner.c \
@@ -19,6 +19,8 @@ SOURCES := $(SRCDIR)/main.c \
 
 OBJECTS := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 TARGET  := $(BINDIR)/wii-frontend
+
+# ===== TARGETS =====
 
 .PHONY: all clean help run
 
@@ -52,5 +54,5 @@ help:
 	@echo "Comandi disponibili:"
 	@echo "  make        - Compila il progetto"
 	@echo "  make clean  - Rimuove i file compilati"
-	@echo "  make run    - Compila e avvia il programma"
+	@echo "  make run    - Compila e avvia"
 	@echo "  make help   - Mostra questo messaggio"
