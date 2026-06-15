@@ -1,7 +1,7 @@
 cat > Makefile << 'EOF'
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags sdl2 SDL2_image SDL2_mixer`
-LDFLAGS = `pkg-config --libs sdl2 SDL2_image SDL2_mixer` -ljson-c -lm
+CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags sdl2 SDL2_image SDL2_mixer SDL2_ttf`
+LDFLAGS = `pkg-config --libs sdl2 SDL2_image SDL2_mixer SDL2_ttf` -ljson-c -lm
 
 SRC_DIR = src
 BUILD_DIR = build
@@ -35,3 +35,4 @@ clean:
 
 .PHONY: all clean
 EOF
+sed -i 's/^    /\t/g' Makefile
