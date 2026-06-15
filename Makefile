@@ -7,11 +7,11 @@ BUILD_DIR = build
 BIN_DIR = bin
 
 SOURCES = $(SRC_DIR)/main.c \
-          $(SRC_DIR)/channels/channel.c \
-          $(SRC_DIR)/ui/ui.c \
-          $(SRC_DIR)/ui/banner.c \
-          $(SRC_DIR)/theme/theme.c \
-          $(SRC_DIR)/audio/audio.c
+	      $(SRC_DIR)/channels/channel.c \
+	      $(SRC_DIR)/ui/ui.c \
+	      $(SRC_DIR)/ui/banner.c \
+	      $(SRC_DIR)/theme/theme.c \
+	      $(SRC_DIR)/audio/audio.c
 
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 TARGET = $(BIN_DIR)/wii-frontend
