@@ -1,3 +1,4 @@
+cat > Makefile << 'EOF'
 CC = gcc
 CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags sdl2 SDL2_image SDL2_mixer`
 LDFLAGS = `pkg-config --libs sdl2 SDL2_image SDL2_mixer` -ljson-c -lm
@@ -33,3 +34,4 @@ clean:
     @echo "✓ Pulizia completata"
 
 .PHONY: all clean
+EOF
