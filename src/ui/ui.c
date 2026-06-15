@@ -1,17 +1,17 @@
 #include "ui.h"
 #include "../theme/theme.h"
 #include "../audio/audio.h"
+#include "../channels/channel.h"
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 
 /* ------------------------------------------------------------------ */
-/* Layout costanti                                                      */
+/* Layout costanti (CHANNEL_PAD viene da theme.h)                      */
 /* ------------------------------------------------------------------ */
 #define BANNER_H_RATIO   0.28f   /* banner occupa 28% altezza screen  */
 #define GRID_TOP_RATIO   0.30f   /* griglia parte al 30%              */
-#define CHANNEL_PAD      6       /* padding tra canali px             */
 #define WIDGET_PAD       6
 
 /* ------------------------------------------------------------------ */
@@ -75,7 +75,7 @@ bool ui_init(UI *ui, SDL_Renderer *renderer, int w, int h) {
 
     /* Orologio iniziale */
     ui->last_clock_update = 0;
-    strncpy(ui->clock_str, "00:00", sizeof(ui->clock_str));
+    strncpy(ui->clock_str, "00:00", sizeof(ui->clock_str) - 1);
 
     return true;
 }
@@ -122,14 +122,14 @@ void ui_handle_input(UI *ui, SDL_Keycode key) {
             ui->page_trans       = PAGE_TRANS_RIGHT;
             ui->page_trans_x     = (float)ui->screen_w;
             ui->transitioning    = true;
-            audio_play_sfx(SFX_NAVIGATE);
+            audio_play_sfx(SFX_PAGE);
             break;
         case SDLK_SLASH:    /* R trigger -> pagina successiva */
             channel_page_next(&ui->grid);
             ui->page_trans       = PAGE_TRANS_LEFT;
             ui->page_trans_x     = -(float)ui->screen_w;
             ui->transitioning    = true;
-            audio_play_sfx(SFX_NAVIGATE);
+            audio_play_sfx(SFX_PAGE);
             break;
         case SDLK_RETURN:   /* A / conferma */
             ui->state = UI_STATE_CHANNEL_OPEN;

@@ -6,10 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "ui/channels.h"
-#include "ui/banner.h"
-#include "ui/animations.h"
-#include "ui/widgets.h"
+#include "ui/ui.h"
 #include "input/input.h"
 #include "audio/audio.h"
 #include "theme/theme.h"
@@ -23,6 +20,7 @@
 typedef struct {
     SDL_Window   *window;
     SDL_Renderer *renderer;
+    UI            ui;
     bool          running;
     Uint32        last_frame;
 } App;
@@ -89,9 +87,7 @@ static bool app_init(App *app) {
 static void app_shutdown(App *app) {
     audio_shutdown();
     theme_shutdown();
-    channels_shutdown();
-    banner_shutdown();
-    widgets_shutdown();
+    input_shutdown();
 
     if (app->renderer) SDL_DestroyRenderer(app->renderer);
     if (app->window)   SDL_DestroyWindow(app->window);
@@ -114,12 +110,11 @@ int main(int argc, char *argv[]) {
     /* Inizializza sottosistemi */
     theme_init(app.renderer);
     audio_init();
-    channels_init(app.renderer);
-    banner_init(app.renderer);
-    widgets_init(app.renderer);
     input_init();
+    ui_init(&app.ui, app.renderer, SCREEN_W, SCREEN_H);
 
-    InputEvent ev;
+    InputEvent ev = {0};
+    float dt = 1.0f / FPS_TARGET;  /* deltatime in secondi */
 
     while (app.running) {
 
@@ -130,20 +125,15 @@ int main(int argc, char *argv[]) {
             app.running = false;
         }
 
-        /* Update */
-        channels_update(&ev);
-        banner_update();
-        animations_update();
-        widgets_update();
+        /* Update UI */
+        ui_update(&app.ui, dt);
 
         /* Render */
         SDL_SetRenderDrawColor(app.renderer, 10, 20, 40, 255);
         SDL_RenderClear(app.renderer);
 
         theme_render_background(app.renderer);
-        channels_render(app.renderer);
-        banner_render(app.renderer);
-        widgets_render(app.renderer);
+        ui_render(&app.ui);
 
         SDL_RenderPresent(app.renderer);
 

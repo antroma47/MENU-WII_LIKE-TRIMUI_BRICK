@@ -5,16 +5,26 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdbool.h>
 
+/* Grid layout per UI */
+#define SLOTS_PER_PAGE 8
+#define COLS_PER_PAGE 4
+#define ROWS_PER_PAGE 2
+#define MAX_PAGES 10
+#define MAX_CHANNELS (SLOTS_PER_PAGE * MAX_PAGES)
+#define CHANNEL_PAD 16
+
 /* Colori tema */
 typedef struct {
     SDL_Color background;
     SDL_Color channel_bg;
     SDL_Color channel_selected;
     SDL_Color channel_border;
+    SDL_Color banner_bg;        /* ← AGGIUNTO */
     SDL_Color text_primary;
     SDL_Color text_secondary;
     SDL_Color accent;
     SDL_Color overlay;
+    SDL_Color text;     /* alias per text_primary */
 } ThemeColors;
 
 /* Font disponibili */
@@ -36,10 +46,10 @@ typedef struct {
 } Theme;
 
 /* API pubblica */
-void  theme_init(SDL_Renderer *renderer);
-void  theme_shutdown(void);
-bool  theme_load(SDL_Renderer *renderer, const char *theme_dir);
-void  theme_render_background(SDL_Renderer *renderer);
+void        theme_init(SDL_Renderer *renderer);
+void        theme_shutdown(void);
+bool        theme_load(SDL_Renderer *renderer, const char *theme_dir);
+void        theme_render_background(SDL_Renderer *renderer);
 
 TTF_Font    *theme_get_font(FontSize size);
 ThemeColors *theme_get_colors(void);

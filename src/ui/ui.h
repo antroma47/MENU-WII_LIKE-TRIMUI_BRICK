@@ -2,10 +2,18 @@
 #define UI_H
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <stdbool.h>
-#include "../channels/channel.h"
+#include <SDL2/SDL_ttf.h>  /* ← AGGIUNGI QUESTO */
 #include "banner.h"
+
+#define SLOTS_PER_PAGE 8   /* 8 canali per pagina */
+#define COLS_PER_PAGE 4    /* 4 colonne */
+#define ROWS_PER_PAGE 2    /* 2 righe */
+#define MAX_PAGES 10
+#define MAX_CHANNELS (SLOTS_PER_PAGE * MAX_PAGES)
+
+
+/* resto del file... */
+
 
 /* Stato generale UI */
 typedef enum {

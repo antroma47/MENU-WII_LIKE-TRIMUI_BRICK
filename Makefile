@@ -1,4 +1,3 @@
-cat > Makefile << 'EOF'
 CC = gcc
 CFLAGS = -Wall -Wextra -O2 `pkg-config --cflags sdl2 SDL2_image SDL2_mixer SDL2_ttf`
 LDFLAGS = `pkg-config --libs sdl2 SDL2_image SDL2_mixer SDL2_ttf` -ljson-c -lm
@@ -20,19 +19,17 @@ TARGET = $(BIN_DIR)/wii-frontend
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-    @mkdir -p $(BIN_DIR)
-    $(CC) $(OBJECTS) $(LDFLAGS) -o $@
-    @echo "✓ Build completato: $(TARGET)"
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	@echo "✓ Build completato: $(TARGET)"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
-    @mkdir -p $(dir $@)
-    $(CC) $(CFLAGS) -c $< -o $@
-    @echo "✓ Compilato: $<"
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "✓ Compilato: $<"
 
 clean:
-    rm -rf $(BUILD_DIR) $(BIN_DIR)
-    @echo "✓ Pulizia completata"
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
+	@echo "✓ Pulizia completata"
 
 .PHONY: all clean
-EOF
-sed -i 's/^    /\t/g' Makefile
