@@ -1,0 +1,13 @@
+{
+  "name": "Default Wii Theme",
+  "colors": {
+    "background": "#1a1a1a",
+    "text": "#ffffff",
+    "accent": "#ff6b6b",
+    "highlight": "#4ecdc4"
+  },
+  "fonts": {
+    "default": "default.ttf",
+    "title": "title.ttf"
+  }
+}
